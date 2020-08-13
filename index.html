@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>TODO list</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      var Task = React.createClass ({
+        render: function () {
+          return (
+            <div>
+              <h3>Task name</h3>
+              <p>Optional text</p>
+            </div>
+          );
+        }
+      })
+
+      ReactDOM.render(
+        <div>
+          <Task />
+          <Task />
+        </div>,
+        document.getElementById('root')
+      );
+
+    </script>
+
+  </body>
+</html>
