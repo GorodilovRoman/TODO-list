@@ -10,14 +10,48 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
-      class Task extends React.Component {
-        edit() {
-          alert (" ");
-        };
-        remove() {
-          alert (" ");
+      class Field extends React.Component {
+        constructor(props){
+          super(props);
+          this.state = {
+            tasks: [
+              "1",
+              "2",
+              "3"
+            ]
+          };
         };
         render() {
+            return (
+              <div className="field">
+                {
+                  this.state.tasks.map (function (item, i) {
+                    return (<Task key={i}>{item}</Task>);
+                  })
+                }
+              </div>
+            );
+        }
+      };
+      class Task extends React.Component {
+        constructor(props){
+          super(props);
+          this.state = {
+            edit: false,
+          };
+        };
+        edit = () => {
+          this.setState ({edit: true});
+        };
+        remove = () => {
+          alert (" ");
+        };
+        save = () => {
+          var txtvalue = this.refs.newTxt.value;
+          alert(txtvalue);
+          this.setState ({edit:false});
+        };
+        renderNorm = () => {
           return (
             <div className="box">
               <div className="text">{this.props.children}</div>
@@ -25,15 +59,27 @@
               <button onClick={this.remove} className="rbtn">Remove</button>
             </div>
           );
+        };
+        renderEdit = () => {
+          return (
+            <div className="box">
+              <textarea ref="newTxt" defaultValue={this.props.children}></textarea>
+              <button onClick={this.save} className="sbtn">Save</button>
+            </div>
+          );
+        };
+        render() {
+          if (this.state.edit){
+            return this.renderEdit();
+          }
+          else {
+            return this.renderNorm();
+          }
         }
       };
 
       ReactDOM.render (
-        <div className="field">
-          <Task>1</Task>
-          <Task>2</Task>
-        </div>,
-        document.getElementById("root")
+        <Field/>, document.getElementById("root")
       );
 
     </script>
