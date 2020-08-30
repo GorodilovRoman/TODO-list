@@ -21,13 +21,26 @@
             ]
           };
         };
+        remove = (i) => {
+          var arr = this.state.tasks;
+          arr.splice (i, 1);
+          this.setState ({state:arr});
+        };
+        update = (text, i) => {
+          var arr = this.state.tasks;
+          arr[i] = text;
+          this.setState ({state:arr});
+        };
+        eachTask = (item, i) => {
+          return (
+            <Task key={i} index={i} update={this.update} remove={this.remove}>{item}</Task>
+          );
+        };
         render() {
             return (
               <div className="field">
                 {
-                  this.state.tasks.map (function (item, i) {
-                    return (<Task key={i}>{item}</Task>);
-                  })
+                  this.state.tasks.map (this.eachTask)
                 }
               </div>
             );
@@ -44,11 +57,10 @@
           this.setState ({edit: true});
         };
         remove = () => {
-          alert (" ");
+          this.props.remove (this.props.index);
         };
         save = () => {
-          var txtvalue = this.refs.newTxt.value;
-          alert(txtvalue);
+          this.props.update (this.refs.newTxt.value, this.props.index);
           this.setState ({edit:false});
         };
         renderNorm = () => {
